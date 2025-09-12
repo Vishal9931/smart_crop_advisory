@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Calendar - Smart Crop Advisory</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsmartcrop5576back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Section -->
+    <header class="bg-surface shadow-card border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h1 class="ml-3 text-xl font-heading font-bold text-primary">Smart Crop Advisory</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="farmer_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
+                    <a href="crop_recommendations.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Recommendations</a>
+                    <a href="crop_calendar.html" class="text-primary font-medium">Calendar</a>
+                    <a href="crop_disease_detection.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Disease Detection</a>
+                    <a href="farmer_login.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Logout</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-primary-50 transition-colors duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Page Header -->
+            <div class="mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 class="text-3xl font-heading font-bold text-primary mb-2">Crop Calendar</h2>
+                        <p class="text-text-secondary">Plan your farming activities with weather-smart scheduling</p>
+                    </div>
+                    
+                    <!-- Voice Input Button -->
+                    <div class="flex items-center gap-3">
+                        <button onclick="startVoiceInput()" class="voice-button min-w-touch min-h-touch bg-accent hover:bg-accent-600 text-surface rounded-lg flex items-center justify-center gap-2 px-4 transition-all duration-200" title="Voice input for tasks">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="hidden sm:inline">Add Task</span>
+                        </button>
+                        
+                        <button onclick="toggleSMSAlerts()" class="min-w-touch min-h-touch bg-primary hover:bg-primary-600 text-surface rounded-lg flex items-center justify-center gap-2 px-4 transition-all duration-200" title="SMS Alert Settings">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                            </svg>
+                            <span class="hidden sm:inline">SMS Alerts</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="bg-surface rounded-2xl shadow-card p-4 mb-6">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1">
+                        <label for="cropFilter" class="block text-sm font-medium text-text-primary mb-2">Filter by Crop</label>
+                        <select id="cropFilter" onchange="filterCalendar()" class="w-full min-h-touch px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                            <option value="all">All Crops</option>
+                            <option value="wheat">🌾 Wheat</option>
+                            <option value="rice">🌾 Rice</option>
+                            <option value="corn">🌽 Corn</option>
+                            <option value="tomato">🍅 Tomato</option>
+                            <option value="potato">🥔 Potato</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex-1">
+                        <label for="taskFilter" class="block text-sm font-medium text-text-primary mb-2">Filter by Task Type</label>
+                        <select id="taskFilter" onchange="filterCalendar()" class="w-full min-h-touch px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                            <option value="all">All Tasks</option>
+                            <option value="planting">🌱 Planting</option>
+                            <option value="watering">💧 Watering</option>
+                            <option value="fertilizing">🧪 Fertilizing</option>
+                            <option value="harvesting">🚜 Harvesting</option>
+                            <option value="pest-control">🐛 Pest Control</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex-1">
+                        <label for="priorityFilter" class="block text-sm font-medium text-text-primary mb-2">Filter by Priority</label>
+                        <select id="priorityFilter" onchange="filterCalendar()" class="w-full min-h-touch px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                            <option value="all">All Priorities</option>
+                            <option value="high">🔴 High Priority</option>
+                            <option value="medium">🟡 Medium Priority</option>
+                            <option value="low">🟢 Low Priority</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- Calendar Section -->
+                <div class="lg:col-span-3">
+                    <!-- Calendar Header -->
+                    <div class="bg-surface rounded-2xl shadow-card mb-4">
+                        <div class="p-4 border-b border-border">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <button onclick="previousMonth()" class="min-w-touch min-h-touch bg-primary-100 hover:bg-primary-200 text-primary rounded-lg flex items-center justify-center transition-colors duration-200">
+                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                    
+                                    <h3 id="currentMonth" class="text-xl font-heading font-bold text-primary">December 2025</h3>
+                                    
+                                    <button onclick="nextMonth()" class="min-w-touch min-h-touch bg-primary-100 hover:bg-primary-200 text-primary rounded-lg flex items-center justify-center transition-colors duration-200">
+                                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                
+                                <!-- Weather Status -->
+                                <div class="flex items-center gap-2 text-sm">
+                                    <div class="flex items-center gap-1 text-warning">
+                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>28°C</span>
+                                    </div>
+                                    <span class="text-text-secondary">|</span>
+                                    <span class="text-text-secondary">Good for farming</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div class="bg-surface rounded-2xl shadow-card overflow-hidden">
+                        <!-- Days Header -->
+                        <div class="grid grid-cols-7 bg-primary-50 border-b border-border">
+                            <div class="p-3 text-center text-sm font-medium text-primary">Sun</div>
+                            <div class="p-3 text-center text-sm font-medium text-primary">Mon</div>
+                            <div class="p-3 text-center text-sm font-medium text-primary">Tue</div>
+                            <div class="p-3 text-center text-sm font-medium text-primary">Wed</div>
+                            <div class="p-3 text-center text-sm font-medium text-primary">Thu</div>
+                            <div class="p-3 text-center text-sm font-medium text-primary">Fri</div>
+                            <div class="p-3 text-center text-sm font-medium text-primary">Sat</div>
+                        </div>
+                        
+                        <!-- Calendar Days -->
+                        <div id="calendarGrid" class="grid grid-cols-7">
+                            <!-- Calendar days will be generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Mobile Weekly View (Hidden on Desktop) -->
+                    <div class="lg:hidden mt-6">
+                        <div class="bg-surface rounded-2xl shadow-card">
+                            <div class="p-4 border-b border-border">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-heading font-bold text-primary">This Week's Tasks</h3>
+                                    <div class="flex gap-2">
+                                        <button onclick="previousWeek()" class="min-w-touch min-h-touch bg-primary-100 hover:bg-primary-200 text-primary rounded-lg flex items-center justify-center transition-colors duration-200">
+                                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                        <button onclick="nextWeek()" class="min-w-touch min-h-touch bg-primary-100 hover:bg-primary-200 text-primary rounded-lg flex items-center justify-center transition-colors duration-200">
+                                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="weeklyTasks" class="p-4 space-y-3">
+                                <!-- Weekly tasks will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Details Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-surface rounded-2xl shadow-card sticky top-6">
+                        <div class="p-4 border-b border-border">
+                            <h3 class="text-lg font-heading font-bold text-primary">Task Details</h3>
+                        </div>
+                        
+                        <div id="taskDetails" class="p-4">
+                            <div class="text-center py-8">
+                                <svg class="h-12 w-12 text-text-secondary mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                                </svg>
+                                <p class="text-text-secondary text-sm">Select a task from the calendar to view details</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-surface rounded-2xl shadow-card mt-6">
+                        <div class="p-4 border-b border-border">
+                            <h3 class="text-lg font-heading font-bold text-primary">Quick Actions</h3>
+                        </div>
+                        
+                        <div class="p-4 space-y-3">
+                            <button onclick="addCustomTask()" class="w-full min-h-touch bg-primary hover:bg-primary-600 text-surface rounded-lg flex items-center justify-center gap-2 transition-colors duration-200">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                                </svg>
+                                Add Task
+                            </button>
+                            
+                            <button onclick="viewWeatherForecast()" class="w-full min-h-touch bg-accent hover:bg-accent-600 text-surface rounded-lg flex items-center justify-center gap-2 transition-colors duration-200">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                Weather
+                            </button>
+                            
+                            <a href="crop_recommendations.html" class="w-full min-h-touch bg-success hover:bg-success-600 text-surface rounded-lg flex items-center justify-center gap-2 transition-colors duration-200">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                Crop Guide
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="h-8 w-8 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <span class="ml-2 text-lg font-heading font-bold text-primary">Smart Crop Advisory</span>
+                </div>
+                <p class="text-text-secondary text-sm mb-4">Empowering farmers with smart agricultural guidance</p>
+                <p class="text-text-secondary text-xs">© 2025 Smart Crop Advisory. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-surface rounded-2xl shadow-modal max-w-md w-full">
+                <div class="p-6 border-b border-border">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-heading font-bold text-primary">Add Custom Task</h3>
+                        <button onclick="closeTaskModal()" class="min-w-touch min-h-touch text-text-secondary hover:text-primary rounded-lg flex items-center justify-center transition-colors duration-200">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <form id="customTaskForm" class="p-6 space-y-4">
+                    <div>
+                        <label for="taskTitle" class="block text-sm font-medium text-text-primary mb-2">Task Title</label>
+                        <input type="text" id="taskTitle" required class="w-full min-h-touch px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Enter task title" />
+                    </div>
+                    
+                    <div>
+                        <label for="taskDate" class="block text-sm font-medium text-text-primary mb-2">Date</label>
+                        <input type="date" id="taskDate" required class="w-full min-h-touch px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" />
+                    </div>
+                    
+                    <div>
+                        <label for="taskPriority" class="block text-sm font-medium text-text-primary mb-2">Priority</label>
+                        <select id="taskPriority" required class="w-full min-h-touch px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                            <option value="high">🔴 High Priority</option>
+                            <option value="medium">🟡 Medium Priority</option>
+                            <option value="low">🟢 Low Priority</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex gap-3 pt-4">
+                        <button type="button" onclick="closeTaskModal()" class="flex-1 min-h-touch border border-border text-text-secondary hover:bg-primary-50 rounded-lg transition-colors duration-200">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 min-h-touch bg-primary hover:bg-primary-600 text-surface rounded-lg transition-colors duration-200">
+                            Add Task
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Calendar data and state
+        let currentDate = new Date(2025, 11, 12); // December 12, 2025
+        let selectedDate = null;
+        let smsAlertsEnabled = false;
+
+        // Sample farming tasks data
+        const farmingTasks = {
+            '2025-12-13': [
+                {
+                    id: 1,
+                    title: 'Water wheat crop',
+                    crop: 'wheat',
+                    type: 'watering',
+                    priority: 'high',
+                    description: 'Water the wheat field early morning. Check soil moisture level.',
+                    materials: ['Water pump', 'Irrigation pipes'],
+                    cost: '₹200',
+                    weather_sensitive: true
+                }
+            ],
+            '2025-12-15': [
+                {
+                    id: 2,
+                    title: 'Apply fertilizer to tomatoes',
+                    crop: 'tomato',
+                    type: 'fertilizing',
+                    priority: 'medium',
+                    description: 'Apply NPK fertilizer to tomato plants. Use 2kg per acre.',
+                    materials: ['NPK fertilizer (2kg)', 'Sprayer'],
+                    cost: '₹500',
+                    weather_sensitive: false
+                }
+            ],
+            '2025-12-18': [
+                {
+                    id: 3,
+                    title: 'Pest control for rice',
+                    crop: 'rice',
+                    type: 'pest-control',
+                    priority: 'high',
+                    description: 'Spray pesticide for brown plant hopper control.',
+                    materials: ['Pesticide', 'Sprayer', 'Protective gear'],
+                    cost: '₹300',
+                    weather_sensitive: true
+                }
+            ],
+            '2025-12-20': [
+                {
+                    id: 4,
+                    title: 'Harvest corn crop',
+                    crop: 'corn',
+                    type: 'harvesting',
+                    priority: 'high',
+                    description: 'Harvest mature corn cobs. Check moisture content.',
+                    materials: ['Harvesting tools', 'Storage bags'],
+                    cost: '₹800',
+                    weather_sensitive: true
+                }
+            ]
+        };
+
+        // Initialize calendar
+        function initializeCalendar() {
+            generateCalendar();
+            generateWeeklyTasks();
+        }
+
+        // Generate calendar grid
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Update month header
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            // Clear previous calendar
+            calendarGrid.innerHTML = '';
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'p-2 h-24 border-r border-b border-border bg-gray-50';
+                calendarGrid.appendChild(emptyCell);
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const dayTasks = farmingTasks[dateStr] || [];
+                const isToday = day === 12; // Current date
+                
+                const dayCell = document.createElement('div');
+                dayCell.className = `p-2 h-24 border-r border-b border-border cursor-pointer hover:bg-primary-50 transition-colors duration-200 ${isToday ? 'bg-primary-100' : 'bg-surface'}`;
+                dayCell.onclick = () => selectDate(dateStr, dayTasks);
+                
+                dayCell.innerHTML = `
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-sm font-medium ${isToday ? 'text-primary' : 'text-text-primary'}">${day}</span>
+                            ${dayTasks.length > 0 ? `<span class="text-xs bg-accent text-surface px-1 rounded">${dayTasks.length}</span>` : ''}
+                        </div>
+                        <div class="flex-1 space-y-1 overflow-hidden">
+                            ${dayTasks.slice(0, 2).map(task => `
+                                <div class="text-xs p-1 rounded ${getPriorityColor(task.priority)} truncate">
+                                    ${getTaskIcon(task.type)} ${task.title}
+                                </div>
+                            `).join('')}
+                            ${dayTasks.length > 2 ? `<div class="text-xs text-text-secondary">+${dayTasks.length - 2} more</div>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                calendarGrid.appendChild(dayCell);
+            }
+        }
+
+        // Generate weekly tasks for mobile view
+        function generateWeeklyTasks() {
+            const weeklyTasks = document.getElementById('weeklyTasks');
+            if (!weeklyTasks) return;
+            
+            weeklyTasks.innerHTML = '';
+            
+            // Get current week's tasks
+            const today = new Date(2025, 11, 12);
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(startOfWeek);
+                date.setDate(startOfWeek.getDate() + i);
+                const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                const dayTasks = farmingTasks[dateStr] || [];
+                
+                if (dayTasks.length > 0) {
+                    const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                    const dayNum = date.getDate();
+                    
+                    const daySection = document.createElement('div');
+                    daySection.className = 'border-l-4 border-primary pl-4';
+                    daySection.innerHTML = `
+                        <div class="text-sm font-medium text-primary mb-2">${dayName}, ${dayNum}</div>
+                        ${dayTasks.map(task => `
+                            <div class="mb-2 p-2 rounded-lg ${getPriorityColor(task.priority)} cursor-pointer" onclick="showTaskDetails(${JSON.stringify(task).replace(/"/g, '&quot;')})">
+                                <div class="flex items-center gap-2">
+                                    ${getTaskIcon(task.type)}
+                                    <span class="text-sm font-medium">${task.title}</span>
+                                </div>
+                                <div class="text-xs text-text-secondary mt-1">${task.crop} • ${task.cost}</div>
+                            </div>
+                        `).join('')}
+                    `;
+                    
+                    weeklyTasks.appendChild(daySection);
+                }
+            }
+            
+            if (weeklyTasks.children.length === 0) {
+                weeklyTasks.innerHTML = '<div class="text-center text-text-secondary py-4">No tasks scheduled for this week</div>';
+            }
+        }
+
+        // Select date and show tasks
+        function selectDate(dateStr, tasks) {
+            selectedDate = dateStr;
+            
+            if (tasks.length > 0) {
+                showTaskDetails(tasks[0]);
+            } else {
+                const taskDetails = document.getElementById('taskDetails');
+                taskDetails.innerHTML = `
+                    <div class="text-center py-8">
+                        <svg class="h-12 w-12 text-text-secondary mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <p class="text-text-secondary text-sm mb-4">No tasks scheduled for ${dateStr}</p>
+                        <button onclick="addCustomTask()" class="bg-primary hover:bg-primary-600 text-surface px-4 py-2 rounded-lg transition-colors duration-200">
+                            Add Task
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Show task details in sidebar
+        function showTaskDetails(task) {
+            const taskDetails = document.getElementById('taskDetails');
+            taskDetails.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 ${getPriorityColor(task.priority)} rounded-full flex items-center justify-center">
+                            ${getTaskIcon(task.type)}
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-heading font-semibold text-primary mb-1">${task.title}</h4>
+                            <div class="flex items-center gap-2 text-sm text-text-secondary">
+                                <span class="capitalize">${task.crop}</span>
+                                <span>•</span>
+                                <span class="capitalize">${task.priority} priority</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary-50 rounded-lg p-3">
+                        <h5 class="font-medium text-primary mb-2">Description</h5>
+                        <p class="text-sm text-text-secondary">${task.description}</p>
+                    </div>
+                    
+                    <div>
+                        <h5 class="font-medium text-primary mb-2">Required Materials</h5>
+                        <ul class="space-y-1">
+                            ${task.materials.map(material => `
+                                <li class="text-sm text-text-secondary flex items-center gap-2">
+                                    <svg class="h-3 w-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    ${material}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-3 bg-accent-50 rounded-lg">
+                        <span class="text-sm font-medium text-accent">Estimated Cost</span>
+                        <span class="text-lg font-bold text-accent">${task.cost}</span>
+                    </div>
+                    
+                    ${task.weather_sensitive ? `
+                        <div class="flex items-center gap-2 p-3 bg-warning-50 rounded-lg">
+                            <svg class="h-5 w-5 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-sm text-warning">Weather sensitive task</span>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="flex gap-2 pt-2">
+                        <button onclick="markTaskComplete(${task.id})" 
+                                class="flex-1 min-h-touch bg-success hover:bg-success-600 text-surface rounded-lg transition-colors duration-200">
+                            Mark Complete
+                        </button>
+                        <button onclick="postponeTask(${task.id})" 
+                                class="flex-1 min-h-touch border border-border text-text-secondary hover:bg-primary-50 rounded-lg transition-colors duration-200">
+                            Postpone
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Utility functions
+        function getPriorityColor(priority) {
+            switch (priority) {
+                case 'high': return 'bg-error-100 text-error';
+                case 'medium': return 'bg-warning-100 text-warning';
+                case 'low': return 'bg-success-100 text-success';
+                default: return 'bg-primary-100 text-primary';
+            }
+        }
+
+        function getTaskIcon(type) {
+            const icons = {
+                planting: '🌱',
+                watering: '💧',
+                fertilizing: '🧪',
+                harvesting: '🚜',
+                'pest-control': '🐛'
+            };
+            return icons[type] || '📋';
+        }
+
+        // Navigation functions
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            generateCalendar();
+        }
+
+        function previousWeek() {
+            // Implementation for mobile weekly navigation
+            generateWeeklyTasks();
+        }
+
+        function nextWeek() {
+            // Implementation for mobile weekly navigation
+            generateWeeklyTasks();
+        }
+
+        // Filter functions
+        function filterCalendar() {
+            const cropFilter = document.getElementById('cropFilter').value;
+            const taskFilter = document.getElementById('taskFilter').value;
+            const priorityFilter = document.getElementById('priorityFilter').value;
+            
+            // Filter logic would be implemented here
+            generateCalendar();
+        }
+
+        // Voice input functionality
+        function startVoiceInput() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Voice input is not supported in your browser');
+                return;
+            }
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'hi-IN';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function() {
+                console.log('Voice input started');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                // Process voice command for adding tasks
+                processVoiceCommand(transcript);
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                alert('Voice input failed. Please try again.');
+            };
+
+            recognition.start();
+        }
+
+        function processVoiceCommand(command) {
+            // Simple voice command processing
+            alert(`Voice command received: "${command}". Task creation feature would be implemented here.`);
+        }
+
+        // SMS alerts toggle
+        function toggleSMSAlerts() {
+            smsAlertsEnabled = !smsAlertsEnabled;
+            const message = smsAlertsEnabled ? 'SMS alerts enabled' : 'SMS alerts disabled';
+            alert(message);
+        }
+
+        // Task management functions
+        function addCustomTask() {
+            document.getElementById('taskModal').classList.remove('hidden');
+        }
+
+        function closeTaskModal() {
+            document.getElementById('taskModal').classList.add('hidden');
+        }
+
+        function markTaskComplete(taskId) {
+            alert(`Task ${taskId} marked as complete!`);
+        }
+
+        function postponeTask(taskId) {
+            alert(`Task ${taskId} postponed to next suitable date.`);
+        }
+
+        function viewWeatherForecast() {
+            alert('Weather forecast feature would open here with 7-day forecast and farming recommendations.');
+        }
+
+        // Custom task form submission
+        document.getElementById('customTaskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('taskTitle').value;
+            const date = document.getElementById('taskDate').value;
+            const priority = document.getElementById('taskPriority').value;
+            
+            // Add task to calendar (in real app, this would save to backend)
+            alert(`Task "${title}" added for ${date} with ${priority} priority.`);
+            
+            closeTaskModal();
+            this.reset();
+        });
+
+        // Initialize calendar on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCalendar();
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Recommendations - Smart Crop Advisory</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsmartcrop5576back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Section -->
+    <header class="bg-surface shadow-card border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h1 class="ml-3 text-xl font-heading font-bold text-primary">Smart Crop Advisory</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="farmer_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
+                    <a href="crop_calendar.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Calendar</a>
+                    <a href="crop_disease_detection.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Disease Detection</a>
+                    <a href="farmer_login.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Logout</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-primary-50 transition-colors duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Page Header -->
+            <div class="mb-8">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 class="text-3xl font-heading font-bold text-primary mb-2">Crop Recommendations</h2>
+                        <p class="text-text-secondary">Personalized crop suggestions based on your soil and weather conditions</p>
+                    </div>
+                    
+                    <!-- Voice Search Button -->
+                    <button id="voiceSearchBtn" class="voice-button min-w-touch min-h-touch bg-accent hover:bg-accent-600 text-surface rounded-lg flex items-center justify-center gap-2 px-4 py-3 transition-all duration-200 shadow-card">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="hidden sm:inline">Voice Search</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Weather Alert Banner -->
+            <div id="weatherAlert" class="mb-6 bg-warning-50 border border-warning-200 rounded-xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 bg-warning-100 rounded-full flex items-center justify-center">
+                    <svg class="h-6 w-6 text-warning-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-semibold text-warning-800">Weather Update</h4>
+                    <p class="text-warning-700 text-sm">Monsoon expected next week. Consider water-resistant crops for better yield.</p>
+                </div>
+                <button class="text-warning-600 hover:text-warning-800 p-1">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="bg-surface rounded-2xl shadow-card p-6 mb-8">
+                <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+                    <h3 class="text-lg font-heading font-semibold text-primary">Filter Recommendations</h3>
+                    
+                    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Season Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Season</label>
+                            <select id="seasonFilter" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                                <option value>All Seasons</option>
+                                <option value="kharif">🌧️ Kharif (Monsoon)</option>
+                                <option value="rabi">❄️ Rabi (Winter)</option>
+                                <option value="zaid">☀️ Zaid (Summer)</option>
+                            </select>
+                        </div>
+
+                        <!-- Profitability Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Profitability</label>
+                            <select id="profitabilityFilter" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                                <option value>All Levels</option>
+                                <option value="high">💰 High (>80%)</option>
+                                <option value="medium">📈 Medium (60-80%)</option>
+                                <option value="low">📊 Low (<60%)</option>
+                            </select>
+                        </div>
+
+                        <!-- Water Requirements -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Water Needs</label>
+                            <select id="waterFilter" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                                <option value>All Types</option>
+                                <option value="low">💧 Low Water</option>
+                                <option value="medium">💧💧 Medium Water</option>
+                                <option value="high">💧💧💧 High Water</option>
+                            </select>
+                        </div>
+
+                        <!-- Soil Compatibility -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Soil Type</label>
+                            <select id="soilFilter" class="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-surface">
+                                <option value>All Soils</option>
+                                <option value="clay">🟤 Clay Soil</option>
+                                <option value="sandy">🟨 Sandy Soil</option>
+                                <option value="loamy">🟫 Loamy Soil</option>
+                                <option value="black">⚫ Black Soil</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Reset Filters -->
+                    <button id="resetFilters" class="min-w-touch min-h-touch bg-text-secondary hover:bg-primary text-surface rounded-lg px-4 py-2 transition-colors duration-200">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Comparison Tool -->
+            <div id="comparisonTool" class="bg-surface rounded-2xl shadow-card p-6 mb-8 hidden">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-heading font-semibold text-primary">Compare Selected Crops</h3>
+                    <button id="clearComparison" class="text-text-secondary hover:text-error transition-colors duration-200">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="comparisonContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Comparison cards will be populated here -->
+                </div>
+            </div>
+
+            <!-- Crop Recommendations Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cropGrid">
+                <!-- Rice Card -->
+                <div class="crop-card bg-surface rounded-2xl shadow-card hover:shadow-modal transition-all duration-200 overflow-hidden" data-crop="rice" data-season="kharif" data-profitability="high" data-water="high" data-soil="clay">
+                    <div class="relative">
+                        <img src="https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Rice crop" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="absolute top-4 right-4 bg-success text-surface px-3 py-1 rounded-full text-sm font-semibold">
+                            92% Match
+                        </div>
+                        <div class="absolute top-4 left-4 bg-surface bg-opacity-90 px-2 py-1 rounded-full text-xs font-medium text-primary">
+                            🌧️ Kharif
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xl font-heading font-bold text-primary">Rice (धान)</h4>
+                            <button class="compare-btn text-text-secondary hover:text-accent transition-colors duration-200" data-crop="rice">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Expected Yield:</span>
+                                <span class="font-semibold text-primary">25-30 quintals/acre</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Profitability:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 h-2 bg-success-100 rounded-full">
+                                        <div class="w-4/5 h-full bg-success rounded-full"></div>
+                                    </div>
+                                    <span class="text-success font-semibold">85%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Water Needs:</span>
+                                <span class="text-primary">💧💧💧 High</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Growing Period:</span>
+                                <span class="text-primary">120-150 days</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-primary-50 rounded-lg p-3 mb-4">
+                            <p class="text-sm text-primary">
+                                <strong>Why recommended:</strong> Perfect for clay soil with high water availability. Monsoon season provides ideal conditions.
+                            </p>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-primary hover:bg-primary-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                View Guide
+                            </button>
+                            <button class="flex-1 bg-accent hover:bg-accent-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                Calculate Profit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wheat Card -->
+                <div class="crop-card bg-surface rounded-2xl shadow-card hover:shadow-modal transition-all duration-200 overflow-hidden" data-crop="wheat" data-season="rabi" data-profitability="medium" data-water="medium" data-soil="loamy">
+                    <div class="relative">
+                        <img src="https://images.pixabay.com/photo-2016/08/10/16/00/wheat-1584537_1280.jpg" alt="Wheat crop" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="absolute top-4 right-4 bg-warning text-surface px-3 py-1 rounded-full text-sm font-semibold">
+                            78% Match
+                        </div>
+                        <div class="absolute top-4 left-4 bg-surface bg-opacity-90 px-2 py-1 rounded-full text-xs font-medium text-primary">
+                            ❄️ Rabi
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xl font-heading font-bold text-primary">Wheat (गेहूं)</h4>
+                            <button class="compare-btn text-text-secondary hover:text-accent transition-colors duration-200" data-crop="wheat">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Expected Yield:</span>
+                                <span class="font-semibold text-primary">18-22 quintals/acre</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Profitability:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 h-2 bg-warning-100 rounded-full">
+                                        <div class="w-3/5 h-full bg-warning rounded-full"></div>
+                                    </div>
+                                    <span class="text-warning font-semibold">72%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Water Needs:</span>
+                                <span class="text-primary">💧💧 Medium</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Growing Period:</span>
+                                <span class="text-primary">110-130 days</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-warning-50 rounded-lg p-3 mb-4">
+                            <p class="text-sm text-warning-800">
+                                <strong>Why recommended:</strong> Good for winter season with moderate water needs. Suitable for loamy soil conditions.
+                            </p>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-primary hover:bg-primary-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                View Guide
+                            </button>
+                            <button class="flex-1 bg-accent hover:bg-accent-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                Calculate Profit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cotton Card -->
+                <div class="crop-card bg-surface rounded-2xl shadow-card hover:shadow-modal transition-all duration-200 overflow-hidden" data-crop="cotton" data-season="kharif" data-profitability="high" data-water="medium" data-soil="black">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80" alt="Cotton crop" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="absolute top-4 right-4 bg-success text-surface px-3 py-1 rounded-full text-sm font-semibold">
+                            88% Match
+                        </div>
+                        <div class="absolute top-4 left-4 bg-surface bg-opacity-90 px-2 py-1 rounded-full text-xs font-medium text-primary">
+                            🌧️ Kharif
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xl font-heading font-bold text-primary">Cotton (कपास)</h4>
+                            <button class="compare-btn text-text-secondary hover:text-accent transition-colors duration-200" data-crop="cotton">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Expected Yield:</span>
+                                <span class="font-semibold text-primary">8-12 quintals/acre</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Profitability:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 h-2 bg-success-100 rounded-full">
+                                        <div class="w-5/6 h-full bg-success rounded-full"></div>
+                                    </div>
+                                    <span class="text-success font-semibold">89%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Water Needs:</span>
+                                <span class="text-primary">💧💧 Medium</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Growing Period:</span>
+                                <span class="text-primary">180-200 days</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-success-50 rounded-lg p-3 mb-4">
+                            <p class="text-sm text-success-800">
+                                <strong>Why recommended:</strong> Excellent for black soil with high market demand. Long growing season ensures good returns.
+                            </p>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-primary hover:bg-primary-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                View Guide
+                            </button>
+                            <button class="flex-1 bg-accent hover:bg-accent-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                Calculate Profit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sugarcane Card -->
+                <div class="crop-card bg-surface rounded-2xl shadow-card hover:shadow-modal transition-all duration-200 overflow-hidden" data-crop="sugarcane" data-season="kharif" data-profitability="medium" data-water="high" data-soil="loamy">
+                    <div class="relative">
+                        <img src="https://images.pixabay.com/photo-2016/11/29/05/45/sugarcane-1867717_1280.jpg" alt="Sugarcane crop" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="absolute top-4 right-4 bg-warning text-surface px-3 py-1 rounded-full text-sm font-semibold">
+                            75% Match
+                        </div>
+                        <div class="absolute top-4 left-4 bg-surface bg-opacity-90 px-2 py-1 rounded-full text-xs font-medium text-primary">
+                            🌧️ Kharif
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xl font-heading font-bold text-primary">Sugarcane (गन्ना)</h4>
+                            <button class="compare-btn text-text-secondary hover:text-accent transition-colors duration-200" data-crop="sugarcane">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Expected Yield:</span>
+                                <span class="font-semibold text-primary">300-400 quintals/acre</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Profitability:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 h-2 bg-warning-100 rounded-full">
+                                        <div class="w-3/4 h-full bg-warning rounded-full"></div>
+                                    </div>
+                                    <span class="text-warning font-semibold">68%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Water Needs:</span>
+                                <span class="text-primary">💧💧💧 High</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Growing Period:</span>
+                                <span class="text-primary">300-365 days</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-warning-50 rounded-lg p-3 mb-4">
+                            <p class="text-sm text-warning-800">
+                                <strong>Why recommended:</strong> Long-term crop with steady income. Requires high water availability and good soil fertility.
+                            </p>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-primary hover:bg-primary-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                View Guide
+                            </button>
+                            <button class="flex-1 bg-accent hover:bg-accent-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                Calculate Profit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maize Card -->
+                <div class="crop-card bg-surface rounded-2xl shadow-card hover:shadow-modal transition-all duration-200 overflow-hidden" data-crop="maize" data-season="kharif" data-profitability="medium" data-water="medium" data-soil="sandy">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=800&q=80" alt="Maize crop" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="absolute top-4 right-4 bg-warning text-surface px-3 py-1 rounded-full text-sm font-semibold">
+                            82% Match
+                        </div>
+                        <div class="absolute top-4 left-4 bg-surface bg-opacity-90 px-2 py-1 rounded-full text-xs font-medium text-primary">
+                            🌧️ Kharif
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xl font-heading font-bold text-primary">Maize (मक्का)</h4>
+                            <button class="compare-btn text-text-secondary hover:text-accent transition-colors duration-200" data-crop="maize">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Expected Yield:</span>
+                                <span class="font-semibold text-primary">15-20 quintals/acre</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Profitability:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 h-2 bg-warning-100 rounded-full">
+                                        <div class="w-3/5 h-full bg-warning rounded-full"></div>
+                                    </div>
+                                    <span class="text-warning font-semibold">74%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Water Needs:</span>
+                                <span class="text-primary">💧💧 Medium</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Growing Period:</span>
+                                <span class="text-primary">90-120 days</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-warning-50 rounded-lg p-3 mb-4">
+                            <p class="text-sm text-warning-800">
+                                <strong>Why recommended:</strong> Fast-growing crop suitable for sandy soil. Good market demand for both grain and fodder.
+                            </p>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-primary hover:bg-primary-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                View Guide
+                            </button>
+                            <button class="flex-1 bg-accent hover:bg-accent-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                Calculate Profit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soybean Card -->
+                <div class="crop-card bg-surface rounded-2xl shadow-card hover:shadow-modal transition-all duration-200 overflow-hidden" data-crop="soybean" data-season="kharif" data-profitability="high" data-water="low" data-soil="black">
+                    <div class="relative">
+                        <img src="https://images.pixabay.com/photo-2016/08/11/08/04/soy-1585273_1280.jpg" alt="Soybean crop" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <div class="absolute top-4 right-4 bg-success text-surface px-3 py-1 rounded-full text-sm font-semibold">
+                            90% Match
+                        </div>
+                        <div class="absolute top-4 left-4 bg-surface bg-opacity-90 px-2 py-1 rounded-full text-xs font-medium text-primary">
+                            🌧️ Kharif
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-xl font-heading font-bold text-primary">Soybean (सोयाबीन)</h4>
+                            <button class="compare-btn text-text-secondary hover:text-accent transition-colors duration-200" data-crop="soybean">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Expected Yield:</span>
+                                <span class="font-semibold text-primary">12-15 quintals/acre</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Profitability:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 h-2 bg-success-100 rounded-full">
+                                        <div class="w-5/6 h-full bg-success rounded-full"></div>
+                                    </div>
+                                    <span class="text-success font-semibold">87%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Water Needs:</span>
+                                <span class="text-primary">💧 Low</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-secondary">Growing Period:</span>
+                                <span class="text-primary">90-110 days</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-success-50 rounded-lg p-3 mb-4">
+                            <p class="text-sm text-success-800">
+                                <strong>Why recommended:</strong> Drought-resistant crop with high protein content. Excellent for black soil with good market prices.
+                            </p>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-primary hover:bg-primary-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                View Guide
+                            </button>
+                            <button class="flex-1 bg-accent hover:bg-accent-600 text-surface py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
+                                Calculate Profit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="hidden text-center py-12">
+                <div class="w-24 h-24 bg-text-secondary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="h-12 w-12 text-text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-heading font-semibold text-text-primary mb-2">No crops match your filters</h3>
+                <p class="text-text-secondary mb-4">Try adjusting your filter criteria to see more recommendations</p>
+                <button id="clearFiltersBtn" class="bg-primary hover:bg-primary-600 text-surface px-6 py-3 rounded-lg font-semibold transition-colors duration-200">
+                    Clear All Filters
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="h-8 w-8 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <span class="ml-2 text-lg font-heading font-bold text-primary">Smart Crop Advisory</span>
+                </div>
+                <p class="text-text-secondary text-sm mb-4">Empowering farmers with smart agricultural guidance</p>
+                <p class="text-text-secondary text-xs">© 2025 Smart Crop Advisory. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Global variables
+        let comparedCrops = [];
+        let allCrops = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFilters();
+            initializeComparison();
+            initializeVoiceSearch();
+            loadCropData();
+        });
+
+        // Load crop data
+        function loadCropData() {
+            allCrops = Array.from(document.querySelectorAll('.crop-card'));
+        }
+
+        // Initialize filters
+        function initializeFilters() {
+            const filters = ['seasonFilter', 'profitabilityFilter', 'waterFilter', 'soilFilter'];
+            
+            filters.forEach(filterId => {
+                document.getElementById(filterId).addEventListener('change', applyFilters);
+            });
+
+            document.getElementById('resetFilters').addEventListener('click', resetFilters);
+            document.getElementById('clearFiltersBtn').addEventListener('click', resetFilters);
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const seasonFilter = document.getElementById('seasonFilter').value;
+            const profitabilityFilter = document.getElementById('profitabilityFilter').value;
+            const waterFilter = document.getElementById('waterFilter').value;
+            const soilFilter = document.getElementById('soilFilter').value;
+
+            let visibleCount = 0;
+
+            allCrops.forEach(card => {
+                let show = true;
+
+                // Season filter
+                if (seasonFilter && card.dataset.season !== seasonFilter) {
+                    show = false;
+                }
+
+                // Profitability filter
+                if (profitabilityFilter && card.dataset.profitability !== profitabilityFilter) {
+                    show = false;
+                }
+
+                // Water filter
+                if (waterFilter && card.dataset.water !== waterFilter) {
+                    show = false;
+                }
+
+                // Soil filter
+                if (soilFilter && card.dataset.soil !== soilFilter) {
+                    show = false;
+                }
+
+                if (show) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results message
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('seasonFilter').value = '';
+            document.getElementById('profitabilityFilter').value = '';
+            document.getElementById('waterFilter').value = '';
+            document.getElementById('soilFilter').value = '';
+
+            allCrops.forEach(card => {
+                card.style.display = 'block';
+            });
+
+            document.getElementById('noResults').classList.add('hidden');
+        }
+
+        // Initialize comparison functionality
+        function initializeComparison() {
+            document.querySelectorAll('.compare-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const cropName = this.dataset.crop;
+                    toggleComparison(cropName, this);
+                });
+            });
+
+            document.getElementById('clearComparison').addEventListener('click', clearComparison);
+        }
+
+        // Toggle crop comparison
+        function toggleComparison(cropName, button) {
+            const index = comparedCrops.indexOf(cropName);
+            
+            if (index > -1) {
+                // Remove from comparison
+                comparedCrops.splice(index, 1);
+                button.classList.remove('text-accent');
+                button.classList.add('text-text-secondary');
+            } else {
+                // Add to comparison (max 3 crops)
+                if (comparedCrops.length < 3) {
+                    comparedCrops.push(cropName);
+                    button.classList.remove('text-text-secondary');
+                    button.classList.add('text-accent');
+                } else {
+                    alert('You can compare maximum 3 crops at a time');
+                    return;
+                }
+            }
+
+            updateComparisonTool();
+        }
+
+        // Update comparison tool
+        function updateComparisonTool() {
+            const comparisonTool = document.getElementById('comparisonTool');
+            const comparisonContent = document.getElementById('comparisonContent');
+
+            if (comparedCrops.length > 0) {
+                comparisonTool.classList.remove('hidden');
+                
+                // Generate comparison cards
+                comparisonContent.innerHTML = comparedCrops.map(cropName => {
+                    const cropData = getCropData(cropName);
+                    return `
+                        <div class="bg-primary-50 rounded-xl p-4">
+                            <h4 class="font-heading font-semibold text-primary mb-3">${cropData.name}</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span>Yield:</span>
+                                    <span class="font-medium">${cropData.yield}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Profitability:</span>
+                                    <span class="font-medium">${cropData.profitability}%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Water:</span>
+                                    <span class="font-medium">${cropData.water}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Duration:</span>
+                                    <span class="font-medium">${cropData.duration}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                comparisonTool.classList.add('hidden');
+            }
+        }
+
+        // Get crop data
+        function getCropData(cropName) {
+            const cropDataMap = {
+                'rice': { name: 'Rice (धान)', yield: '25-30 quintals/acre', profitability: 85, water: 'High', duration: '120-150 days' },
+                'wheat': { name: 'Wheat (गेहूं)', yield: '18-22 quintals/acre', profitability: 72, water: 'Medium', duration: '110-130 days' },
+                'cotton': { name: 'Cotton (कपास)', yield: '8-12 quintals/acre', profitability: 89, water: 'Medium', duration: '180-200 days' },
+                'sugarcane': { name: 'Sugarcane (गन्ना)', yield: '300-400 quintals/acre', profitability: 68, water: 'High', duration: '300-365 days' },
+                'maize': { name: 'Maize (मक्का)', yield: '15-20 quintals/acre', profitability: 74, water: 'Medium', duration: '90-120 days' },
+                'soybean': { name: 'Soybean (सोयाबीन)', yield: '12-15 quintals/acre', profitability: 87, water: 'Low', duration: '90-110 days' }
+            };
+            
+            return cropDataMap[cropName] || {};
+        }
+
+        // Clear comparison
+        function clearComparison() {
+            comparedCrops = [];
+            document.querySelectorAll('.compare-btn').forEach(btn => {
+                btn.classList.remove('text-accent');
+                btn.classList.add('text-text-secondary');
+            });
+            updateComparisonTool();
+        }
+
+        // Initialize voice search
+        function initializeVoiceSearch() {
+            document.getElementById('voiceSearchBtn').addEventListener('click', startVoiceSearch);
+        }
+
+        // Voice search functionality
+        function startVoiceSearch() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Voice search is not supported in your browser');
+                return;
+            }
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            const button = document.getElementById('voiceSearchBtn');
+
+            recognition.lang = 'hi-IN';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            button.classList.add('recording');
+            button.innerHTML = `
+                <svg class="h-6 w-6 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                    <circle cx="10" cy="10" r="3"/>
+                </svg>
+                <span class="hidden sm:inline">Listening...</span>
+            `;
+
+            recognition.onstart = function() {
+                console.log('Voice search started');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript.toLowerCase();
+                console.log('Voice input:', transcript);
+                
+                // Process voice commands
+                processVoiceCommand(transcript);
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                alert('Voice search failed. Please try again.');
+            };
+
+            recognition.onend = function() {
+                button.classList.remove('recording');
+                button.innerHTML = `
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="hidden sm:inline">Voice Search</span>
+                `;
+            };
+
+            recognition.start();
+        }
+
+        // Process voice commands
+        function processVoiceCommand(command) {
+            // Reset filters first
+            resetFilters();
+
+            // Check for crop names
+            if (command.includes('धान') || command.includes('rice')) {
+                highlightCrop('rice');
+            } else if (command.includes('गेहूं') || command.includes('wheat')) {
+                highlightCrop('wheat');
+            } else if (command.includes('कपास') || command.includes('cotton')) {
+                highlightCrop('cotton');
+            } else if (command.includes('गन्ना') || command.includes('sugarcane')) {
+                highlightCrop('sugarcane');
+            } else if (command.includes('मक्का') || command.includes('maize')) {
+                highlightCrop('maize');
+            } else if (command.includes('सोयाबीन') || command.includes('soybean')) {
+                highlightCrop('soybean');
+            }
+            // Check for season filters
+            else if (command.includes('खरीफ') || command.includes('kharif') || command.includes('monsoon')) {
+                document.getElementById('seasonFilter').value = 'kharif';
+                applyFilters();
+            } else if (command.includes('रबी') || command.includes('rabi') || command.includes('winter')) {
+                document.getElementById('seasonFilter').value = 'rabi';
+                applyFilters();
+            } else if (command.includes('जायद') || command.includes('zaid') || command.includes('summer')) {
+                document.getElementById('seasonFilter').value = 'zaid';
+                applyFilters();
+            }
+            // Check for profitability filters
+            else if (command.includes('profitable') || command.includes('फायदेमंद')) {
+                document.getElementById('profitabilityFilter').value = 'high';
+                applyFilters();
+            }
+            // Check for water requirements
+            else if (command.includes('कम पानी') || command.includes('low water')) {
+                document.getElementById('waterFilter').value = 'low';
+                applyFilters();
+            } else if (command.includes('ज्यादा पानी') || command.includes('high water')) {
+                document.getElementById('waterFilter').value = 'high';
+                applyFilters();
+            } else {
+                alert('Sorry, I didn\'t understand that command. Try saying crop names or filter criteria.');
+            }
+        }
+
+        // Highlight specific crop
+        function highlightCrop(cropName) {
+            const cropCard = document.querySelector(`[data-crop="${cropName}"]`);
+            if (cropCard) {
+                cropCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                cropCard.style.transform = 'scale(1.02)';
+                cropCard.style.boxShadow = '0 8px 24px rgba(45, 80, 22, 0.2)';
+                
+                setTimeout(() => {
+                    cropCard.style.transform = '';
+                    cropCard.style.boxShadow = '';
+                }, 2000);
+            }
+        }
+
+        // Weather alert close functionality
+        document.querySelector('#weatherAlert button').addEventListener('click', function() {
+            document.getElementById('weatherAlert').style.display = 'none';
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

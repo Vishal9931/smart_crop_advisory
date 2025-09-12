@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Primary Colors */
+  --color-primary: #2D5016; /* deep forest green */
+  --color-primary-50: #F0F4ED; /* very light green */
+  --color-primary-100: #D9E5CC; /* light green */
+  --color-primary-200: #B8D199; /* medium light green */
+  --color-primary-300: #97BD66; /* medium green */
+  --color-primary-400: #76A933; /* medium dark green */
+  --color-primary-500: #2D5016; /* primary green */
+  --color-primary-600: #244011; /* dark green */
+  --color-primary-700: #1B300D; /* darker green */
+  --color-primary-800: #122008; /* very dark green */
+  --color-primary-900: #091004; /* darkest green */
+
+  /* Secondary Colors */
+  --color-secondary: #8B4513; /* rich earth brown */
+  --color-secondary-50: #F5F1ED; /* very light brown */
+  --color-secondary-100: #E6D7C7; /* light brown */
+  --color-secondary-200: #D4BFA1; /* medium light brown */
+  --color-secondary-300: #C2A77B; /* medium brown */
+  --color-secondary-400: #B08F55; /* medium dark brown */
+  --color-secondary-500: #8B4513; /* secondary brown */
+  --color-secondary-600: #6F370F; /* dark brown */
+  --color-secondary-700: #53290B; /* darker brown */
+  --color-secondary-800: #371B07; /* very dark brown */
+  --color-secondary-900: #1B0D04; /* darkest brown */
+
+  /* Accent Colors */
+  --color-accent: #FF8C00; /* vibrant orange */
+  --color-accent-50: #FFF7ED; /* very light orange */
+  --color-accent-100: #FFEDD5; /* light orange */
+  --color-accent-200: #FED7AA; /* medium light orange */
+  --color-accent-300: #FDBA74; /* medium orange */
+  --color-accent-400: #FB923C; /* medium dark orange */
+  --color-accent-500: #FF8C00; /* accent orange */
+  --color-accent-600: #EA580C; /* dark orange */
+  --color-accent-700: #C2410C; /* darker orange */
+  --color-accent-800: #9A3412; /* very dark orange */
+  --color-accent-900: #7C2D12; /* darkest orange */
+
+  /* Background Colors */
+  --color-background: #FAFAF9; /* warm off-white */
+  --color-surface: #FFFFFF; /* pure white */
+
+  /* Text Colors */
+  --color-text-primary: #1A1A1A; /* near-black */
+  --color-text-secondary: #666666; /* medium gray */
+
+  /* Status Colors */
+  --color-success: #22C55E; /* bright green */
+  --color-success-50: #F0FDF4; /* very light success green */
+  --color-success-100: #DCFCE7; /* light success green */
+  --color-success-200: #BBF7D0; /* medium light success green */
+  --color-success-300: #86EFAC; /* medium success green */
+  --color-success-400: #4ADE80; /* medium dark success green */
+  --color-success-500: #22C55E; /* success green */
+  --color-success-600: #16A34A; /* dark success green */
+  --color-success-700: #15803D; /* darker success green */
+  --color-success-800: #166534; /* very dark success green */
+  --color-success-900: #14532D; /* darkest success green */
+
+  --color-warning: #F59E0B; /* amber yellow */
+  --color-warning-50: #FFFBEB; /* very light warning yellow */
+  --color-warning-100: #FEF3C7; /* light warning yellow */
+  --color-warning-200: #FDE68A; /* medium light warning yellow */
+  --color-warning-300: #FCD34D; /* medium warning yellow */
+  --color-warning-400: #FBBF24; /* medium dark warning yellow */
+  --color-warning-500: #F59E0B; /* warning yellow */
+  --color-warning-600: #D97706; /* dark warning yellow */
+  --color-warning-700: #B45309; /* darker warning yellow */
+  --color-warning-800: #92400E; /* very dark warning yellow */
+  --color-warning-900: #78350F; /* darkest warning yellow */
+
+  --color-error: #DC2626; /* strong red */
+  --color-error-50: #FEF2F2; /* very light error red */
+  --color-error-100: #FEE2E2; /* light error red */
+  --color-error-200: #FECACA; /* medium light error red */
+  --color-error-300: #FCA5A5; /* medium error red */
+  --color-error-400: #F87171; /* medium dark error red */
+  --color-error-500: #DC2626; /* error red */
+  --color-error-600: #DC2626; /* dark error red */
+  --color-error-700: #B91C1C; /* darker error red */
+  --color-error-800: #991B1B; /* very dark error red */
+  --color-error-900: #7F1D1D; /* darkest error red */
+
+  /* Border Colors */
+  --color-border: #E5E5E5; /* neutral gray */
+  --color-border-secondary: rgba(139, 69, 19, 0.2); /* secondary brown with opacity */
+
+  /* Shadow Colors */
+  --shadow-primary: rgba(45, 80, 22, 0.1); /* primary green shadow */
+  --shadow-card: 0 2px 8px var(--shadow-primary);
+  --shadow-modal: 0 8px 24px var(--shadow-primary);
+  --shadow-dropdown: 0 4px 16px var(--shadow-primary);
+}
+
+/* Animation preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Base styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+/* Touch target minimum size for outdoor use */
+.touch-target {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* Voice activation button styles */
+.voice-button {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.voice-button:hover {
+  transform: scale(1.05);
+}
+
+.voice-button:active {
+  transform: scale(0.95);
+}
+
+.voice-button.recording {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-modal);
+}
+
+/* Loading skeleton animation */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Expandable content transitions */
+.expandable {
+  transition: height 300ms ease-in-out;
+  overflow: hidden;
+}
+
+/* Weather-responsive gradients */
+.weather-sunny {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+}
+
+.weather-cloudy {
+  background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+}
+
+.weather-rainy {
+  background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+}

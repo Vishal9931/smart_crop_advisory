@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmer Login - Smart Crop Advisory</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsmartcrop5576back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Section -->
+    <header class="bg-surface shadow-card border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h1 class="ml-3 text-xl font-heading font-bold text-primary">Smart Crop Advisory</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="farmer_registration.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Register</a>
+                    <a href="farmer_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-primary-50 transition-colors duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md mx-auto">
+            <!-- Hero Section -->
+            <div class="text-center mb-8">
+                <div class="relative mb-6">
+                    <img src="https://images.pixabay.com/photos/2016/08/10/20/26/farming-1584275_1280.jpg" alt="Farmer with crops" class="w-full h-48 object-cover rounded-2xl shadow-card" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    <div class="absolute inset-0 bg-primary bg-opacity-20 rounded-2xl"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center text-surface">
+                            <h2 class="text-3xl font-heading font-bold mb-2">Welcome Back</h2>
+                            <p class="text-lg opacity-90">Access your farming dashboard</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="mb-6">
+                <div class="bg-surface rounded-xl p-4 shadow-card">
+                    <label for="language" class="block text-sm font-medium text-text-primary mb-2">
+                        <span class="flex items-center gap-2">
+                            <svg class="h-4 w-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd"/>
+                            </svg>
+                            भाषा चुनें / Choose Language
+                        </span>
+                    </label>
+                    <select id="language" name="language" class="w-full min-h-touch px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-lg bg-surface">
+                        <option value="hi">हिंदी (Hindi)</option>
+                        <option value="en" selected>English</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                        <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                        <option value="te">తెలుగు (Telugu)</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="bg-surface rounded-2xl shadow-card p-6 sm:p-8">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Login to Your Account</h3>
+                    <p class="text-text-secondary">Enter your details to access your farming dashboard</p>
+                </div>
+
+                <!-- Offline Status Indicator -->
+                <div id="offlineIndicator" class="hidden mb-4 p-3 bg-warning-50 border border-warning-200 rounded-lg">
+                    <div class="flex items-center gap-2">
+                        <svg class="h-5 w-5 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-warning-700 text-sm font-medium">You're offline. Using cached data.</span>
+                    </div>
+                </div>
+
+                <form id="loginForm" class="space-y-6">
+                    <!-- Mobile Number Field -->
+                    <div class="space-y-2">
+                        <label for="mobileNumber" class="block text-lg font-medium text-text-primary">
+                            <span class="flex items-center gap-2">
+                                <svg class="h-5 w-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                Mobile Number *
+                            </span>
+                        </label>
+                        <div class="flex gap-2">
+                            <input type="tel" id="mobileNumber" name="mobileNumber" required pattern="[0-9]{10}" class="flex-1 min-h-touch px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-lg" placeholder="Enter your mobile number" value />
+                            <button type="button" class="voice-button min-w-touch min-h-touch bg-accent hover:bg-accent-600 text-surface rounded-lg flex items-center justify-center transition-all duration-200" onclick="startVoiceInput('mobileNumber')" title="Voice input">
+                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="mobileError" class="text-error text-sm hidden"></div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="space-y-2">
+                        <label for="password" class="block text-lg font-medium text-text-primary">
+                            <span class="flex items-center gap-2">
+                                <svg class="h-5 w-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Password *
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required class="w-full min-h-touch px-4 py-3 pr-12 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-lg" placeholder="Enter your password" />
+                            <button type="button" onclick="togglePassword()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary hover:text-primary transition-colors duration-200">
+                                <svg id="eyeIcon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div id="passwordError" class="text-error text-sm hidden"></div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" class="h-5 w-5 text-primary focus:ring-primary border-border rounded" />
+                            <label for="rememberMe" class="ml-2 text-text-secondary">Remember me</label>
+                        </div>
+                        <button type="button" onclick="showForgotPassword()" class="text-primary hover:text-primary-600 font-medium underline">
+                            Forgot Password?
+                        </button>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" class="w-full min-h-touch bg-primary hover:bg-primary-600 text-surface text-lg font-semibold rounded-lg transition-all duration-200 shadow-card hover:shadow-modal">
+                        <span class="flex items-center justify-center gap-2">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            Login to Dashboard
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Registration Link -->
+                <div class="mt-6 text-center">
+                    <p class="text-text-secondary">
+                        New to Smart Crop Advisory? 
+                        <a href="farmer_registration.html" class="text-primary hover:text-primary-600 font-medium underline">
+                            Create an account
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Access Features -->
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-surface rounded-xl p-4 shadow-card text-center">
+                    <div class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="h-5 w-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-heading font-semibold text-primary mb-1">Secure Login</h4>
+                    <p class="text-text-secondary text-sm">Your data is protected with encryption</p>
+                </div>
+
+                <div class="bg-surface rounded-xl p-4 shadow-card text-center">
+                    <div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="h-5 w-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-heading font-semibold text-accent mb-1">SMS Recovery</h4>
+                    <p class="text-text-secondary text-sm">Get password reset via SMS</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="h-8 w-8 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <span class="ml-2 text-lg font-heading font-bold text-primary">Smart Crop Advisory</span>
+                </div>
+                <p class="text-text-secondary text-sm mb-4">Empowering farmers with smart agricultural guidance</p>
+                <p class="text-text-secondary text-xs">© 2025 Smart Crop Advisory. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-surface rounded-2xl shadow-modal max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-heading font-bold text-primary">Reset Password</h3>
+                <button onclick="closeForgotPassword()" class="text-text-secondary hover:text-primary">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-text-secondary mb-4">Enter your mobile number to receive a password reset SMS</p>
+            <form id="forgotPasswordForm" class="space-y-4">
+                <div>
+                    <label for="resetMobile" class="block text-sm font-medium text-text-primary mb-2">Mobile Number</label>
+                    <input type="tel" id="resetMobile" name="resetMobile" required pattern="[0-9]{10}" class="w-full min-h-touch px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Enter your mobile number" />
+                </div>
+                <button type="submit" class="w-full min-h-touch bg-primary hover:bg-primary-600 text-surface font-semibold rounded-lg transition-all duration-200">
+                    Send Reset SMS
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Check offline status
+        function updateOfflineStatus() {
+            const offlineIndicator = document.getElementById('offlineIndicator');
+            if (!navigator.onLine) {
+                offlineIndicator.classList.remove('hidden');
+            } else {
+                offlineIndicator.classList.add('hidden');
+            }
+        }
+
+        // Voice Input Functionality
+        function startVoiceInput(fieldId) {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('Voice input is not supported in your browser');
+                return;
+            }
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            const button = event.target.closest('button');
+            const field = document.getElementById(fieldId);
+
+            recognition.lang = 'hi-IN'; // Hindi language
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            button.classList.add('recording');
+            
+            recognition.onstart = function() {
+                button.innerHTML = '<svg class="h-6 w-6 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3"/></svg>';
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                field.value = transcript;
+                field.focus();
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                alert('Voice input failed. Please try again.');
+            };
+
+            recognition.onend = function() {
+                button.classList.remove('recording');
+                button.innerHTML = '<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/></svg>';
+            };
+
+            recognition.start();
+        }
+
+        // Toggle Password Visibility
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L12 12m-3.122-3.122L12 12m0 0l3.878 3.878M12 12l3.878-3.878m0 0L21 21"/>';
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>';
+            }
+        }
+
+        // Show Forgot Password Modal
+        function showForgotPassword() {
+            document.getElementById('forgotPasswordModal').classList.remove('hidden');
+        }
+
+        // Close Forgot Password Modal
+        function closeForgotPassword() {
+            document.getElementById('forgotPasswordModal').classList.add('hidden');
+        }
+
+        // Form Validation and Submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous errors
+            document.querySelectorAll('.text-error').forEach(el => el.classList.add('hidden'));
+            
+            let isValid = true;
+            
+            // Validate mobile number
+            const mobile = document.getElementById('mobileNumber').value.trim();
+            if (!/^[0-9]{10}$/.test(mobile)) {
+                showError('mobileError', 'Please enter a valid 10-digit mobile number');
+                isValid = false;
+            }
+            
+            // Validate password
+            const password = document.getElementById('password').value.trim();
+            if (password.length < 6) {
+                showError('passwordError', 'Password must be at least 6 characters long');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Check credentials (mock authentication)
+                if (mobile === '9876543210' && password === 'farmer123') {
+                    // Store login data
+                    const loginData = {
+                        mobile: mobile,
+                        loginTime: new Date().toISOString(),
+                        rememberMe: document.getElementById('rememberMe').checked
+                    };
+                    
+                    localStorage.setItem('loginData', JSON.stringify(loginData));
+                    localStorage.setItem('isLoggedIn', 'true');
+                    
+                    // Show success message
+                    alert('Login successful! Redirecting to dashboard...');
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'farmer_dashboard.html';
+                } else {
+                    // Check if user exists in registration data
+                    const farmerData = localStorage.getItem('farmerData');
+                    if (farmerData) {
+                        const userData = JSON.parse(farmerData);
+                        if (userData.mobile === mobile) {
+                            // User exists but wrong password
+                            showError('passwordError', 'Incorrect password. Try forgot password option.');
+                        } else {
+                            showError('mobileError', 'Mobile number not registered. Please register first.');
+                        }
+                    } else {
+                        showError('mobileError', 'Mobile number not registered. Please register first.');
+                    }
+                }
+            }
+        });
+
+        // Forgot Password Form Submission
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const resetMobile = document.getElementById('resetMobile').value.trim();
+            
+            if (!/^[0-9]{10}$/.test(resetMobile)) {
+                alert('Please enter a valid 10-digit mobile number');
+                return;
+            }
+            
+            // Mock SMS sending
+            alert(`Password reset SMS sent to ${resetMobile}. Your temporary password is: temp123`);
+            closeForgotPassword();
+        });
+        
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+
+        // Real-time validation
+        document.getElementById('mobileNumber').addEventListener('input', function(e) {
+            const value = e.target.value.replace(/\D/g, '');
+            e.target.value = value.slice(0, 10);
+        });
+
+        // Language Selection Handler
+        document.getElementById('language').addEventListener('change', function(e) {
+            const selectedLanguage = e.target.value;
+            localStorage.setItem('selectedLanguage', selectedLanguage);
+            // In a real app, this would trigger UI language change
+            console.log('Language changed to:', selectedLanguage);
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateOfflineStatus();
+            
+            // Load saved language preference
+            const savedLanguage = localStorage.getItem('selectedLanguage');
+            if (savedLanguage) {
+                document.getElementById('language').value = savedLanguage;
+            }
+            
+            // Check if user is already logged in
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                if (confirm('You are already logged in. Go to dashboard?')) {
+                    window.location.href = 'farmer_dashboard.html';
+                }
+            }
+        });
+
+        // Listen for online/offline events
+        window.addEventListener('online', updateOfflineStatus);
+        window.addEventListener('offline', updateOfflineStatus);
+
+        // Close modal when clicking outside
+        document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeForgotPassword();
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

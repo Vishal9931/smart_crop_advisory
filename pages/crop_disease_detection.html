@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Disease Detection - Smart Crop Advisory</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fsmartcrop5576back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Header Section -->
+    <header class="bg-surface shadow-card border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <svg class="h-10 w-10 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h1 class="ml-3 text-xl font-heading font-bold text-primary">Smart Crop Advisory</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="farmer_dashboard.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Dashboard</a>
+                    <a href="crop_recommendations.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Recommendations</a>
+                    <a href="crop_calendar.html" class="text-text-secondary hover:text-primary transition-colors duration-200">Calendar</a>
+                    <a href="crop_disease_detection.html" class="text-primary font-medium">Disease Detection</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2 rounded-md text-text-secondary hover:text-primary hover:bg-primary-50 transition-colors duration-200">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Page Header -->
+            <div class="text-center mb-8">
+                <div class="relative mb-6">
+                    <img src="https://images.pixabay.com/photos/2016/08/09/21/54/yellowish-1581753_1280.jpg" alt="Crop disease detection" class="w-full h-48 object-cover rounded-2xl shadow-card" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    <div class="absolute inset-0 bg-primary bg-opacity-20 rounded-2xl"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center text-surface">
+                            <h2 class="text-3xl font-heading font-bold mb-2">Crop Disease Detection</h2>
+                            <p class="text-lg opacity-90">Upload crop photos for instant diagnosis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo Upload Section -->
+            <div class="bg-surface rounded-2xl shadow-card p-6 sm:p-8 mb-8">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Upload Crop Photo</h3>
+                    <p class="text-text-secondary">Take a clear photo of affected crop leaves or stems for accurate diagnosis</p>
+                </div>
+
+                <!-- Upload Area -->
+                <div id="uploadArea" class="border-2 border-dashed border-border rounded-2xl p-8 text-center mb-6 transition-all duration-200 hover:border-primary hover:bg-primary-50">
+                    <div id="uploadPlaceholder" class="space-y-4">
+                        <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto">
+                            <svg class="h-10 w-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-text-primary mb-2">Upload or Take Photo</h4>
+                            <p class="text-text-secondary mb-4">Drag and drop image here, or click to select</p>
+                            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                                <button id="cameraBtn" class="min-h-touch bg-primary hover:bg-primary-600 text-surface px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2">
+                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Take Photo
+                                </button>
+                                <button id="galleryBtn" class="min-h-touch bg-accent hover:bg-accent-600 text-surface px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2">
+                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Choose from Gallery
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Preview Area (Hidden by default) -->
+                    <div id="imagePreview" class="hidden">
+                        <img id="previewImage" class="max-w-full max-h-64 mx-auto rounded-lg shadow-card mb-4" alt="Preview" />
+                        <div class="flex gap-3 justify-center">
+                            <button id="analyzeBtn" class="min-h-touch bg-success hover:bg-success-600 text-surface px-8 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                Analyze Disease
+                            </button>
+                            <button id="retakeBtn" class="min-h-touch bg-text-secondary hover:bg-text-primary text-surface px-6 py-3 rounded-lg font-medium transition-all duration-200">
+                                Retake Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voice Instructions -->
+                <div class="bg-accent-50 rounded-lg p-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <button id="voiceInstructionsBtn" class="voice-button min-w-touch min-h-touch bg-accent hover:bg-accent-600 text-surface rounded-lg flex items-center justify-center transition-all duration-200">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.896-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-.757 2.829 1 1 0 11-1.415-1.414A3.987 3.987 0 0013 12a3.987 3.987 0 00-.172-1.415 1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <div>
+                            <h4 class="font-semibold text-accent-700">Voice Instructions</h4>
+                            <p class="text-accent-600 text-sm">Click to hear photo taking tips in your language</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden File Input -->
+                <input type="file" id="fileInput" accept="image/*" capture="environment" class="hidden" />
+            </div>
+
+            <!-- Analysis Results Section -->
+            <div id="resultsSection" class="bg-surface rounded-2xl shadow-card p-6 sm:p-8 mb-8 hidden">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Disease Analysis Results</h3>
+                    <p class="text-text-secondary">AI-powered diagnosis with treatment recommendations</p>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="text-center py-8">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="h-8 w-8 text-primary animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-semibold text-text-primary mb-2">Analyzing Image...</h4>
+                    <p class="text-text-secondary">Please wait while we identify the disease</p>
+                </div>
+
+                <!-- Results Content -->
+                <div id="resultsContent" class="hidden">
+                    <!-- Disease Identification -->
+                    <div class="bg-warning-50 rounded-lg p-6 mb-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-warning-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="h-6 w-6 text-warning-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-semibold text-warning-800 mb-2">Disease Detected: Leaf Blight</h4>
+                                <p class="text-warning-700 mb-3">Confidence Level: 87%</p>
+                                <p class="text-warning-600 text-sm">This fungal disease commonly affects crops during humid conditions and can spread rapidly if not treated.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Treatment Recommendations -->
+                    <div class="bg-success-50 rounded-lg p-6 mb-6">
+                        <h4 class="text-lg font-semibold text-success-800 mb-4 flex items-center gap-2">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Treatment Recommendations
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <span class="bg-success-200 text-success-800 text-sm font-medium px-2 py-1 rounded">1</span>
+                                <div>
+                                    <h5 class="font-medium text-success-800">Immediate Action</h5>
+                                    <p class="text-success-700 text-sm">Remove affected leaves and dispose properly. Apply copper-based fungicide spray.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-success-200 text-success-800 text-sm font-medium px-2 py-1 rounded">2</span>
+                                <div>
+                                    <h5 class="font-medium text-success-800">Prevention</h5>
+                                    <p class="text-success-700 text-sm">Improve air circulation, avoid overhead watering, and apply preventive fungicide weekly.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="bg-success-200 text-success-800 text-sm font-medium px-2 py-1 rounded">3</span>
+                                <div>
+                                    <h5 class="font-medium text-success-800">Follow-up</h5>
+                                    <p class="text-success-700 text-sm">Monitor plants daily for 2 weeks. Repeat treatment if symptoms persist.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Estimate -->
+                    <div class="bg-accent-50 rounded-lg p-6 mb-6">
+                        <h4 class="text-lg font-semibold text-accent-800 mb-4 flex items-center gap-2">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+                            </svg>
+                            Treatment Cost Estimate
+                        </h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <h5 class="font-medium text-accent-800 mb-2">Required Materials</h5>
+                                <ul class="space-y-1 text-sm text-accent-700">
+                                    <li>• Copper fungicide: ₹250</li>
+                                    <li>• Sprayer rental: ₹50</li>
+                                    <li>• Protective gear: ₹100</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-medium text-accent-800 mb-2">Total Cost</h5>
+                                <p class="text-2xl font-bold text-accent-600">₹400</p>
+                                <p class="text-sm text-accent-600">For 1 acre treatment</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button id="voiceResultsBtn" class="voice-button min-h-touch bg-accent hover:bg-accent-600 text-surface px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 0A9.972 9.972 0 0119 12a9.972 9.972 0 01-1.929 5.657 1 1 0 11-1.414-1.414A7.971 7.971 0 0017 12c0-2.21-.896-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 12a5.983 5.983 0 01-.757 2.829 1 1 0 11-1.415-1.414A3.987 3.987 0 0013 12a3.987 3.987 0 00-.172-1.415 1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                            Hear Results
+                        </button>
+                        <a href="farmer_dashboard.html" class="min-h-touch bg-primary hover:bg-primary-600 text-surface px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
+                            </svg>
+                            Consult Expert
+                        </a>
+                        <button id="saveResultsBtn" class="min-h-touch bg-success hover:bg-success-600 text-surface px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2">
+                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                            Save to History
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="bg-surface rounded-2xl shadow-card p-6 sm:p-8">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Detection History</h3>
+                    <p class="text-text-secondary">Previous diagnoses and treatment progress</p>
+                </div>
+
+                <!-- History Items -->
+                <div class="space-y-4">
+                    <div class="border border-border rounded-lg p-4 hover:shadow-card transition-all duration-200">
+                        <div class="flex items-start gap-4">
+                            <img src="https://images.pexels.com/photos/1459505/pexels-photo-1459505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Previous diagnosis" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-text-primary">Tomato Leaf Spot</h4>
+                                    <span class="text-sm text-text-secondary">Dec 10, 2025</span>
+                                </div>
+                                <p class="text-sm text-text-secondary mb-2">Treatment applied: Copper fungicide spray</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="bg-success-100 text-success-800 text-xs font-medium px-2 py-1 rounded">Treated</span>
+                                    <span class="text-xs text-text-secondary">87% confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-border rounded-lg p-4 hover:shadow-card transition-all duration-200">
+                        <div class="flex items-start gap-4">
+                            <img src="https://images.pixabay.com/photos/2020/05/26/13/39/corn-5224077_1280.jpg" alt="Previous diagnosis" class="w-16 h-16 object-cover rounded-lg flex-shrink-0" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-text-primary">Corn Rust Disease</h4>
+                                    <span class="text-sm text-text-secondary">Dec 8, 2025</span>
+                                </div>
+                                <p class="text-sm text-text-secondary mb-2">Treatment in progress: Fungicide application</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="bg-warning-100 text-warning-800 text-xs font-medium px-2 py-1 rounded">In Progress</span>
+                                    <span class="text-xs text-text-secondary">92% confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View All History -->
+                <div class="text-center mt-6">
+                    <button class="text-primary hover:text-primary-600 font-medium underline">
+                        View All History (12 items)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-border mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <svg class="h-8 w-8 text-primary" viewBox="0 0 40 40" fill="currentColor">
+                        <path d="M20 2L24 8H32L26 14L28 22L20 18L12 22L14 14L8 8H16L20 2Z"/>
+                        <circle cx="20" cy="28" r="8" fill="currentColor" opacity="0.7"/>
+                        <path d="M16 32C16 30 18 28 20 28C22 28 24 30 24 32" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <span class="ml-2 text-lg font-heading font-bold text-primary">Smart Crop Advisory</span>
+                </div>
+                <p class="text-text-secondary text-sm mb-4">Empowering farmers with smart agricultural guidance</p>
+                <p class="text-text-secondary text-xs">© 2025 Smart Crop Advisory. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImage = document.getElementById('previewImage');
+        const fileInput = document.getElementById('fileInput');
+        const cameraBtn = document.getElementById('cameraBtn');
+        const galleryBtn = document.getElementById('galleryBtn');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const retakeBtn = document.getElementById('retakeBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const loadingState = document.getElementById('loadingState');
+        const resultsContent = document.getElementById('resultsContent');
+
+        // File Upload Handling
+        uploadArea.addEventListener('click', () => {
+            if (!imagePreview.classList.contains('hidden')) return;
+            fileInput.click();
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('border-primary', 'bg-primary-50');
+        });
+
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-primary', 'bg-primary-50');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('border-primary', 'bg-primary-50');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+
+        // Camera Button
+        cameraBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.setAttribute('capture', 'environment');
+            fileInput.click();
+        });
+
+        // Gallery Button
+        galleryBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.removeAttribute('capture');
+            fileInput.click();
+        });
+
+        // File Input Change
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        // Handle File Selection
+        function handleFileSelect(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                uploadPlaceholder.classList.add('hidden');
+                imagePreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Retake Photo
+        retakeBtn.addEventListener('click', () => {
+            uploadPlaceholder.classList.remove('hidden');
+            imagePreview.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+            fileInput.value = '';
+        });
+
+        // Analyze Disease
+        analyzeBtn.addEventListener('click', () => {
+            resultsSection.classList.remove('hidden');
+            loadingState.classList.remove('hidden');
+            resultsContent.classList.add('hidden');
+
+            // Simulate analysis delay
+            setTimeout(() => {
+                loadingState.classList.add('hidden');
+                resultsContent.classList.remove('hidden');
+                
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }, 3000);
+        });
+
+        // Voice Instructions
+        document.getElementById('voiceInstructionsBtn').addEventListener('click', function() {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(
+                    'फसल की तस्वीर लेने के लिए, पत्तियों को साफ रोशनी में रखें। प्रभावित हिस्से को स्पष्ट रूप से दिखाएं। कैमरा को स्थिर रखें और पास से फोटो लें।'
+                );
+                utterance.lang = 'hi-IN';
+                speechSynthesis.speak(utterance);
+                
+                this.classList.add('recording');
+                setTimeout(() => {
+                    this.classList.remove('recording');
+                }, 8000);
+            } else {
+                alert('Voice output is not supported in your browser');
+            }
+        });
+
+        // Voice Results
+        document.getElementById('voiceResultsBtn').addEventListener('click', function() {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(
+                    'आपकी फसल में पत्ती झुलसा रोग का पता चला है। तुरंत प्रभावित पत्तियों को हटाएं और कॉपर फंगीसाइड का छिड़काव करें। उपचार की कुल लागत चार सौ रुपए है।'
+                );
+                utterance.lang = 'hi-IN';
+                speechSynthesis.speak(utterance);
+                
+                this.classList.add('recording');
+                setTimeout(() => {
+                    this.classList.remove('recording');
+                }, 12000);
+            } else {
+                alert('Voice output is not supported in your browser');
+            }
+        });
+
+        // Save Results
+        document.getElementById('saveResultsBtn').addEventListener('click', function() {
+            const diagnosisData = {
+                disease: 'Leaf Blight',
+                confidence: 87,
+                date: new Date().toISOString(),
+                treatment: 'Copper fungicide spray',
+                cost: 400,
+                status: 'diagnosed'
+            };
+            
+            // Save to localStorage
+            let history = JSON.parse(localStorage.getItem('diseaseHistory') || '[]');
+            history.unshift(diagnosisData);
+            localStorage.setItem('diseaseHistory', JSON.stringify(history));
+            
+            // Show success message
+            this.innerHTML = '<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Saved!';
+            this.classList.remove('bg-success', 'hover:bg-success-600');
+            this.classList.add('bg-primary', 'hover:bg-primary-600');
+            
+            setTimeout(() => {
+                this.innerHTML = '<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>Save to History';
+                this.classList.remove('bg-primary', 'hover:bg-primary-600');
+                this.classList.add('bg-success', 'hover:bg-success-600');
+            }, 2000);
+        });
+
+        // Image Compression Function
+        function compressImage(file, maxWidth = 800, quality = 0.8) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = () => {
+                    const ratio = Math.min(maxWidth / img.width, maxWidth / img.height);
+                    canvas.width = img.width * ratio;
+                    canvas.height = img.height * ratio;
+                    
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    canvas.toBlob(resolve, 'image/jpeg', quality);
+                };
+                
+                img.src = URL.createObjectURL(file);
+            });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load disease history if available
+            const history = JSON.parse(localStorage.getItem('diseaseHistory') || '[]');
+            console.log('Disease detection history loaded:', history.length, 'items');
+            
+            // Check if user came from dashboard with specific crop
+            const urlParams = new URLSearchParams(window.location.search);
+            const cropType = urlParams.get('crop');
+            if (cropType) {
+                console.log('Analyzing for crop type:', cropType);
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

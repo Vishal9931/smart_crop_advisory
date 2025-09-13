@@ -13,13 +13,15 @@
   --color-primary-50: #F0F4ED; /* very light green */
   --color-primary-100: #D9E5CC; /* light green */
   --color-primary-200: #B8D199; /* medium light green */
+  --color-primary-800: #122008; /* very dark green */
   --color-primary-300: #97BD66; /* medium green */
+   --color-primary-900: #091004; /* darkest green */
   --color-primary-400: #76A933; /* medium dark green */
   --color-primary-500: #2D5016; /* primary green */
   --color-primary-600: #244011; /* dark green */
   --color-primary-700: #1B300D; /* darker green */
-  --color-primary-800: #122008; /* very dark green */
-  --color-primary-900: #091004; /* darkest green */
+  
+ 
 
   /* Secondary Colors */
   --color-secondary: #8B4513; /* rich earth brown */
@@ -28,11 +30,12 @@
   --color-secondary-200: #D4BFA1; /* medium light brown */
   --color-secondary-300: #C2A77B; /* medium brown */
   --color-secondary-400: #B08F55; /* medium dark brown */
+  --color-secondary-900: #1B0D04; /* darkest brown */
   --color-secondary-500: #8B4513; /* secondary brown */
   --color-secondary-600: #6F370F; /* dark brown */
   --color-secondary-700: #53290B; /* darker brown */
   --color-secondary-800: #371B07; /* very dark brown */
-  --color-secondary-900: #1B0D04; /* darkest brown */
+  
 
   /* Accent Colors */
   --color-accent: #FF8C00; /* vibrant orange */

@@ -561,7 +561,9 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
-
+/* [hidden]:where(:not([hidden="until-found"])) {
+  display: none;
+}*/
 .static{
   position: static;
 }
